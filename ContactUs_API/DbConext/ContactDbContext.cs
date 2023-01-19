@@ -17,6 +17,7 @@ namespace ContactUs_API.DbConext
         public virtual DbSet<tblContactForm> tblContactForm { get; set; }
         public virtual DbSet<Google_Map> Google_Map { get; set; }
         public virtual DbSet<tblHelp_Support> tblHelp_Support { get; set; }
+        public virtual DbSet<tblFooter> tblFooter { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

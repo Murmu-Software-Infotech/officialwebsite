@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AppConnection\AppConnection.csproj" />
+    <ProjectReference Include="..\UTILITY\UTILITY.csproj" />
   </ItemGroup>
 
 </Project>
