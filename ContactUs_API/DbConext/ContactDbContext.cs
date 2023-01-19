@@ -15,12 +15,14 @@ namespace ContactUs_API.DbConext
         }
 
         public virtual DbSet<tblContactForm> tblContactForm { get; set; }
+        public virtual DbSet<Google_Map> Google_Map { get; set; }
+        public virtual DbSet<tblHelp_Support> tblHelp_Support { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=DESKTOP-V253E4L;Initial Catalog=MurmuSoftwareInfotechDB;Persist Security Info=true;Trusted_Connection=true;TrustServerCertificate=true;");// connection string
+                optionsBuilder.UseSqlServer("Server=DESKTOP-JGOIDB5\\MSSQLSERVER03;Initial Catalog=MurmuSoftwareInfotechDB;Persist Security Info=true;Trusted_Connection=true;TrustServerCertificate=true;");// connection string
             }
         }
        
