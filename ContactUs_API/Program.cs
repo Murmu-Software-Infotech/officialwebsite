@@ -2,17 +2,15 @@ using AppConnection;
 using ContactUs_API.DbConext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-
+using UTILITY.CommanModel;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.Configure<SMTPConfigModel>(builder.Configuration.GetSection("SMTPConfig"));
 builder.Services.AddControllers();
-//builder.Services.AddDbContext<AppDBContext>(options =>
-//{
-//    options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionStrings:DefaultConnection"));
-//});
+
 builder.Services.AddDbContext<ContactDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionStrings")));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -13,7 +13,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AppConnection\AppConnection.csproj" />
     <ProjectReference Include="..\ContactUs_API\ContactUs_API.csproj" />
+    <ProjectReference Include="..\UTILITY\UTILITY.csproj" />
   </ItemGroup>
 
 </Project>

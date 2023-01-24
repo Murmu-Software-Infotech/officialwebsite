@@ -1,11 +1,8 @@
-﻿using ContactUs_API.DbConext.Entity;
-using ContactUs_API.DbConext;
-using Microsoft.AspNetCore.Mvc;
+﻿using ContactUs_API.DbConext;
+using ContactUs_API.DbConext.Entity;
 using ContactUs_API.Model;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 using UTILITY.CommanModel;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace ContactUs_API.Controllers
 {
@@ -18,6 +15,7 @@ namespace ContactUs_API.Controllers
         public ContactController()
         {
             _context = new ContactDbContext();
+           
         }
         /// <summary>
         ///  get all record from contact form tbl
@@ -46,8 +44,9 @@ namespace ContactUs_API.Controllers
         {
             try
             {
-                if (contactFormModel!= null)
+                if (contactFormModel != null)
                 {
+                   
                     tblContactForm tblContact = new tblContactForm();
                     tblContact.FirstName = contactFormModel.FirstName;
                     tblContact.LastName = contactFormModel.LastName;
@@ -56,8 +55,18 @@ namespace ContactUs_API.Controllers
                     tblContact.Comments = contactFormModel.Comments;
                     _context.Add(tblContact);
                     _context.SaveChanges();
+                    //Mail confugration section **************Start*************\\
+
+                    //var client = new SmtpClient("smtp.mailtrap.io", 2525)
+                    //{
+                    //    Credentials = new NetworkCredential("ebec7c643a4f7f", "219569bac4ef50"),
+                    //    EnableSsl = true
+                    //};
+                    //client.Send("rajnagina53@gmail.com", "rajnagina53@gmail.com", "Hello world", "testbody");
+
+                    //Mail confugration section **************End*************\\
                     return "Record successfully inserted";
-                }
+                }   
                 else
                 {
                     return "Record not found";
@@ -108,7 +117,7 @@ namespace ContactUs_API.Controllers
                     google_Map.GoogleLink = data.GoogleLink;
                     google_Map.CTA_Id = data.CTA_Id;
                     return google_Map;
-                }  
+                }
                 else
                 {
                     return google_Map;
@@ -119,7 +128,7 @@ namespace ContactUs_API.Controllers
                 throw ex;
             }
         }
-        
+
         /// <summary>
         /// update record into google map tbl by id 
         /// </summary>
@@ -169,7 +178,7 @@ namespace ContactUs_API.Controllers
                 throw ex;
             }
         }
-        
+
         /// <summary>
         /// get record from help support tbl by id
         /// </summary>
@@ -181,7 +190,7 @@ namespace ContactUs_API.Controllers
             try
             {
                 HelpSupportModel support = new HelpSupportModel();
-                 var data = _context.tblHelp_Support.Find(helpSupportById);
+                var data = _context.tblHelp_Support.Find(helpSupportById);
                 if (data != null)
                 {
                     support.Id = data.Id;
@@ -248,7 +257,7 @@ namespace ContactUs_API.Controllers
             try
             {
                 Footer footer = new Footer();
-                 var footerData = _context.tblFooter.Find(footerId);
+                var footerData = _context.tblFooter.Find(footerId);
                 if (footer != null)
                 {
                     footer.FooterId = footerData.FooterId;
@@ -297,5 +306,67 @@ namespace ContactUs_API.Controllers
                 throw ex;
             }
         }
+
+        /// <summary>
+        /// Get record from tblSeo tbl by id
+        /// </summary>
+        /// <param name="seoId"></param>
+        /// <returns></returns>
+        [HttpGet("GetSeoDataById")]
+        public SeoModel GetSeoDataById(int seoId)
+        {
+            try
+            {
+                SeoModel seo = new SeoModel();
+                var seoData = _context.tblSeo.Find(seoId);
+                if (seoData != null)
+                {
+                    seo.SeoId = seoData.SeoId;
+                    seo.SeoMetaPage = seoData.SeoMetaPage;
+                    seo.SeoData = seoData.SeoData;
+                    return seo;
+                }
+                else
+                {
+                    return seo;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// update record from tblSeo tbl by id
+        /// </summary>
+        /// <param name="seoModel"></param>
+        /// <returns></returns>
+        [HttpPost("UpdateSeoById")]
+        public string UpdateSeoById(SeoModel seoModel)
+        {
+            try
+            {
+                tblSeo seo = new tblSeo();
+                seo = _context.tblSeo.Find(seoModel.SeoId);
+                if (seo != null)
+                {
+                    seo.SeoId = seoModel.SeoId;
+                    seo.SeoMetaPage = seoModel.SeoMetaPage;
+                    seo.SeoData = seoModel.SeoData;
+                    _context.SaveChanges();
+                    return "Record Udate successfully";
+                }
+                else
+                {
+                    return "Record id not find";
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }
